@@ -10,8 +10,10 @@ from flask.ext.sqlalchemy import SQLAlchemy
 # Define the WSGI application object
 app = Flask(__name__)
 
-# Configurations
+# Load default configuration (dev)
 app.config.from_object('config')
+# Load configuration from file specified in environment
+app.config.from_envvar('FLASK_CONFIG_FILE', silent=True)
 
 # Define the database object which is imported
 # by modules and controllers
