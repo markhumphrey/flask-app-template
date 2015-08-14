@@ -32,13 +32,16 @@ app.register_blueprint(bp_hello)
 
 # Build the database:
 # This will create the database file using SQLAlchemy
-db.create_all()
+# Empty url implies sqllite in-memory db which needs special handling
+if app.config['DEBUG'] and app.config['SQLALCHEMY_DATABASE_URI'] != 'sqlite://':
+    db.create_all()
 
 # need to initialize sqllite in-memory db after app.run()
 # https://gehrcke.de/2015/05/in-memory-sqlite-database-and-flask-a-threading-trap/
-#@app.before_request
-#def before_request():
-#    with app.app_context():
-        # Extensions like Flask-SQLAlchemy now know what the "current" app
-        # is while within this block. Therefore, you can now run........
-#       db.create_all()
+@app.before_request
+def before_request():
+    if app.config['DEBUG'] and app.config['SQLALCHEMY_DATABASE_URI'] == 'sqlite://':
+        with app.app_context():
+            # Extensions like Flask-SQLAlchemy now know what the "current" app
+            # is while within this block. Therefore, you can now run........
+            db.create_all()

@@ -8,6 +8,11 @@ https://www.digitalocean.com/community/tutorials/how-to-structure-large-flask-ap
 Following the current recommendation for templates located in blueprint dirs:
 http://flask.pocoo.org/docs/0.10/blueprints/#templates
 
+I need to look into adding skeleton code for switching between environments (e.g. dev, staging and production):
+https://exploreflask.com/configuration.html
+
+Includes skeleton code using Flask, SQLAlchemy and WTForms.
+
 [`markhumphrey/flask-app-template`](https://index.docker.io/u/markhumphrey/flask-app-template) is a [docker](https://docker.io) image for and extended version of the [Flask microframework](http://flask.pocoo.org/) hello world application.
 
 It is based on [`mhumphrey/python-app`](https://index.docker.io/u/markhumphrey/python-app) base image and listen on port `8080`.
@@ -16,4 +21,4 @@ It is based on [`mhumphrey/python-app`](https://index.docker.io/u/markhumphrey/p
 
 - Run the following command
 
-        docker run -p 8080 google/flask-app-template
+        docker run -p 8080 markhumphrey/flask-app-template
