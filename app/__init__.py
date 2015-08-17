@@ -11,7 +11,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 # Load default configuration (dev)
-app.config.from_object('config')
+app.config.from_object('app.config')
 # Load configuration from file specified in environment
 app.config.from_envvar('FLASK_CONFIG_FILE', silent=True)
 
