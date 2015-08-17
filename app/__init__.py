@@ -25,12 +25,19 @@ def not_found(error):
     return render_template('404.html'), 404
 
 # Import a module / component using its blueprint handler variable (mod_auth)
+from app.bp_root.views import bp as bp_root
 from app.bp_hello.views import bp as bp_hello
 
 # Register blueprint(s)
+app.register_blueprint(bp_root)
 app.register_blueprint(bp_hello)
-# app.register_blueprint(bp_xyz)
-# ..
+
+# Simple case for debugging
+"""
+@app.route('/')
+def hello_world():
+    return 'Hello World!'
+"""
 
 # Build the database:
 # This will create the database file using SQLAlchemy

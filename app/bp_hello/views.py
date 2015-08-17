@@ -15,7 +15,7 @@ from app.bp_hello.forms import LoginForm
 from app.bp_hello.models import User
 
 # Define the blueprint: 'hello', set its url prefix: app.url/hello
-bp = Blueprint('hello', __name__, url_prefix='/hello',
+bp = Blueprint(name='hello', import_name=__name__, url_prefix='/hello',
                       static_folder='static', template_folder='templates')
 
 # Set the route and accepted methods
