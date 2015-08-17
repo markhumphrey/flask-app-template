@@ -15,10 +15,19 @@ Includes skeleton code using Flask, SQLAlchemy and WTForms.
 
 [`markhumphrey/flask-app-template`](https://index.docker.io/u/markhumphrey/flask-app-template) is a [docker](https://docker.io) image for and extended version of the [Flask microframework](http://flask.pocoo.org/) hello world application.
 
-It is based on [`mhumphrey/python-app`](https://index.docker.io/u/markhumphrey/python-app) base image and listen on port `8080`.
+Create a Dockerfile building from python-2.7 base image and listening on port 8088.
+
+Make use of docker extends feature to easily create runnable development and production environments. In the dev environment the source code is
+mounted as a read only volume.
+
+https://docs.docker.com/compose/extends/
 
 ## Usage
 
-- Run the following command
+- To build the docker image and launch the service:
 
-        docker run -p 8080 markhumphrey/flask-app-template
+docker-compose up web
+
+- To launch a shell on the running docker container
+
+docker-compose run web "/bin/bash"

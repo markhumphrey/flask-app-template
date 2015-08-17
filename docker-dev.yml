@@ -1,0 +1,13 @@
+web:
+  extends:
+    file: docker-common.yml
+    service: web
+  volumes:
+   - .:/code:ro
+#  links:
+#   - redis
+  environment:
+    - REDIS_HOST=redis
+  command: /env/bin/python /code/main.py
+#redis:
+#  image: redis
