@@ -1,33 +1,73 @@
 # mhumphrey/flask-app-template
 
-This is an evolving base template for my flask apps. This includes a Dockerfile to provide a runtime environment.
-
-I used this as a starting point:
-https://www.digitalocean.com/community/tutorials/how-to-structure-large-flask-applications
-
-Following the current recommendation for templates located in blueprint dirs:
-http://flask.pocoo.org/docs/0.10/blueprints/#templates
-
-I need to look into adding skeleton code for switching between environments (e.g. dev, staging and production):
-https://exploreflask.com/configuration.html
-
-Includes skeleton code using Flask, SQLAlchemy and WTForms.
-
-[`markhumphrey/flask-app-template`](https://index.docker.io/u/markhumphrey/flask-app-template) is a [docker](https://docker.io) image for and extended version of the [Flask microframework](http://flask.pocoo.org/) hello world application.
-
-Create a Dockerfile building from python-2.7 base image and listening on port 8088.
-
-Make use of docker extends feature to easily create runnable development and production environments. In the dev environment the source code is
-mounted as a read only volume.
-
-https://docs.docker.com/compose/extends/
+This is an evolving personal base template for my Flask apps wrapped up in a Docker image for development and deployment.
 
 ## Usage
 
-- To build the docker image and launch the service:
+To build the docker image and launch the dev container:
 
+```
 docker-compose up web
+```
 
-- To launch a shell on the running docker container
+By default the directory that docker-compose is run from will be mounted read-only as /code in the container and main.py run from that location. This allows for a dev workflow of changing the code without having to rebuild the container.
 
+To attach a shell to the running docker container:
+
+```
 docker-compose run web "/bin/bash"
+```
+
+## Flask Directory Structure
+
+Application is kicked off by:
+
+```
+main.py
+```
+
+Configuration is located in:
+
+```
+config.py
+config_prod.py
+```
+
+Following the recommendations of:
+http://flask.pocoo.org/docs/0.10/config/#development-production
+
+Dependencies are listed in requirements.txt and are initially:
+- Flask
+- Flask-SQLAlchemy
+- Flask-WTForms
+
+This turtorial is used as a starting point for the code organization:
+https://www.digitalocean.com/community/tutorials/how-to-structure-large-flask-applications
+
+Each blueprint  is further broken out into it own module to better scale as the app grows larger.
+
+Each blueprint has also has its own templates and static assets. I am following the current official recommendation for templates located in blueprint dirs:
+http://flask.pocoo.org/docs/0.10/blueprints/#templates
+
+## Docker Support
+
+The Dockerfile builds from the python-2.7 base image and exposes port 8080 as specified here:
+
+```
+Dockerfile
+```
+
+Multi-container applications are defined for docker-compose here:
+
+```
+docker-compose.yml
+```
+
+The docker-compose extends feature is used to support different workflows:
+https://docs.docker.com/compose/extends/
+
+```
+docker-common.yml
+docker-dev.yml
+docker-prod.yml
+```
