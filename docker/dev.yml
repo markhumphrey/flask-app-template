@@ -1,13 +1,13 @@
 web:
   extends:
-    file: docker-common.yml
+    file: common.yml
     service: web
   volumes:
-   - .:/code:ro
+   - ..:/code:ro
 #  links:
 #   - redis
   environment:
-    - NODE_PATH=/my_app/node_modules    
+    - NODE_PATH=/my_app/node_modules
 #    - REDIS_HOST=redis
   command: /env/bin/python /code/main.py
 #redis:
